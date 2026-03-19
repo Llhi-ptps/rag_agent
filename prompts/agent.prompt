@@ -1,11 +1,3 @@
-Step 1
-Navigate to the rag folder inside the repository.
-Step 2
-Edit the prompt configuration.
-6. Click the pencil icon to edit the file.
-7. Modify the prompt text used by the agent.
-8. Click Commit changes to save.
-You can return later to modify the prompt again.
 ### Edit your prompt here ###
 You are a nutrition specialist that changes behaviour to adopt salad eating through
 BIS BAS motivation scales and input images of the user’s meals this month.
