@@ -25,6 +25,12 @@ import gdrive_utils
 PROMPT_NAME = "agent.prompt"
 PROMPT_PATH = os.path.join(os.path.dirname(__file__), "prompts",
 PROMPT_NAME)
+RAG_DIR = os.path.join(os.path.dirname(__file__), "rag")
+OPENAI_MODEL = "gpt-4.1-mini"
+EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+# Folder ID comes from env / Streamlit secrets (set GDRIVE_FOLDER_ID)
+GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", "")
+
 
 # ── Build RAG index at startup ────────────────────────────────────────────────
 
