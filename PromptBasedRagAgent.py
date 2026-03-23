@@ -22,12 +22,14 @@ from langchain_community.vectorstores import FAISS
 # ── Google Drive ────────────────────────────
 ──────────────────────────────────
 import gdrive_utils
+
 PROMPT_NAME = "agent.prompt"
 PROMPT_PATH = os.path.join(os.path.dirname(__file__), "prompts",
 PROMPT_NAME)
 RAG_DIR = os.path.join(os.path.dirname(__file__), "rag")
 OPENAI_MODEL = "gpt-4.1-mini"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+
 # Folder ID comes from env / Streamlit secrets (set GDRIVE_FOLDER_ID)
 GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", "")
 
@@ -82,35 +84,39 @@ _retriever = _build_index()
 # ── Google Drive tools ─────────────────────────
 ───────────────────────────────
 def list_drive_recipes(search: str = "") -> str:
-"""List recipe image files available in the Google Drive recipe folder.
-Optionally pass a *search* term (e.g. 'pasta', 'salad') to filter results
-by filename. Returns file names and their Drive IDs so you can call
-get_recipe_image() with the right ID.
-"""
+    """List recipe image files available in the Google Drive recipe folder.
+    Optionally pass a *search* term (e.g. 'pasta', 'salad') to filter results
+    by filename. Returns file names and their Drive IDs so you can call
+    get_recipe_image() with the right ID.
+    """
 if not GDRIVE_FOLDER_ID:
-return "Google Drive folder is not configured (GDRIVE_FOLDER_ID missing)."
-try:
-files = gdrive_utils.list_image_files(GDRIVE_FOLDER_ID)
-except Exception as e:
-return f"Error accessing Google Drive: {e}"
+    return "Google Drive folder is not configured (GDRIVE_FOLDER_ID missing)."
+    try:
+        files = gdrive_utils.list_image_files(GDRIVE_FOLDER_ID)
+    except Exception as e:
+        return f"Error accessing Google Drive: {e}"
+        
 if not files:
-return "No recipe images found in the Google Drive folder."
+    return "No recipe images found in the Google Drive folder."
+    
 if search:
-term = search.lower()
-files = [f for f in files if term in f["name"].lower()]
-if not files:
-return f"No recipe images matched '{search}'."
+    term = search.lower()
+    files = [f for f in files if term in f["name"].lower()]
+    if not files:
+        return f"No recipe images matched '{search}'."
+        
 lines = [f"- {f['name']} (id: {f['id']})" for f in files]
 return "Available recipe images:\n" + "\n".join(lines)
+
 def get_recipe_image(file_id: str) -> str:
-"""Fetch a recipe image from Google Drive.
-CRITICAL: The tool returns a tag like [RECIPE_IMAGE:abc123].
-You MUST paste that tag EXACTLY and VERBATIM into your reply.
-The UI converts it into a visible image — but only if the tag
-is present in your message. Never replace it with a description.
-"""
+    """Fetch a recipe image from Google Drive.
+    CRITICAL: The tool returns a tag like [RECIPE_IMAGE:abc123].
+    You MUST paste that tag EXACTLY and VERBATIM into your reply.
+    The UI converts it into a visible image — but only if the tag
+    is present in your message. Never replace it with a description.
+    """
 if not file_id.strip():
-return "No file_id provided."
+    return "No file_id provided."
 return f"[RECIPE_IMAGE:{file_id.strip()}]"
 
 # ── Prompt ────────────────────────────────────────────────────────────────────
