@@ -84,16 +84,16 @@ def render_response(response: str) -> None:
   parts = _IMAGE_TAG.split(response)
   # split() on a group alternates: text, file_id, text, file_id, …
   for i, part in enumerate(parts):
-  if i % 2 == 0: # plain text segment
-    if part.strip():
-      st.markdown(part.strip())
-  else: # captured file_id
-    file_id = part.strip()
-    try:
-      img_bytes = _fetch_drive_image(file_id)
-      st.image(img_bytes, use_container_width=True)
-    except Exception as e:
-      st.warning(f"⚠ Could not load recipe image ({file_id}): {e}")
+    if i % 2 == 0: # plain text segment
+      if part.strip():
+        st.markdown(part.strip())
+    else: # captured file_id
+      file_id = part.strip()
+      try:
+        img_bytes = _fetch_drive_image(file_id)
+        st.image(img_bytes, use_container_width=True)
+      except Exception as e:
+        st.warning(f"⚠ Could not load recipe image ({file_id}): {e}")
 
 # ── 4. Session state ──────────────────────────────────────────────────────────
 if "session_seed" not in st.session_state:
