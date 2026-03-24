@@ -10,6 +10,7 @@ Env vars are loaded from (in priority order):
 import os
 import uuid
 import streamlit as st
+import gdrive_utils  # or wherever your module lives
 
 # ── 0. Page config — must be the very first Streamlit call ───────────────────
 st.set_page_config(page_title="Prompt-based RAG Agent", page_icon="📚")
@@ -38,6 +39,8 @@ _bootstrap_env()
 
 from PromptBasedRagAgent import graph  # noqa: E402
 from langchain_core.messages import HumanMessage, AIMessage  
+import base64  # ← add this
+import re      # ← add this
 
 # ── 3. Helpers ────────────────────────────────────────────────────────────────
 
@@ -79,8 +82,7 @@ def _fetch_drive_image(file_id: str) -> bytes:
   return gdrive_utils.download_bytes(file_id)
   
 def render_response(response: str) -> None:
-  """Render an assistant response, replacing [RECIPE_IMAGE:id] tags with
-  images."""
+  """Render an assistant response, replacing [RECIPE_IMAGE:id] tags with images."""
   parts = _IMAGE_TAG.split(response)
   # split() on a group alternates: text, file_id, text, file_id, …
   for i, part in enumerate(parts):
