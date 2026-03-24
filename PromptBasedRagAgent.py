@@ -6,6 +6,14 @@ from langchain_core.runnables import RunnableConfig
 from langgraph.prebuilt import create_react_agent
 from langgraph.prebuilt.chat_agent_executor import AgentState
 
+from datetime import datetime
+from langchain_core.tools import tool
+
+@tool
+def get_current_date() -> str:
+    """Returns today's date."""
+    return datetime.now().strftime("%Y-%m-%d")
+
 # ── Document loaders ──────────────────────────────────────────────────────────
 from langchain_community.document_loaders import (
     TextLoader,
