@@ -168,8 +168,7 @@ for msg in st.session_state.chat_history:
       else:
       st.markdown(msg["content"])
 
-# ── 8. Chat input ────────────────────────────
-─────────────────────────────────
+# ── 8. Chat input ─────────────────────────────────────────────────────────────
 user_input = st.chat_input("Type your message…")
 if user_input or (st.session_state.pending_b64 and user_input is not None):
   text = user_input or ""
