@@ -133,8 +133,7 @@ with st.sidebar:
     st.session_state.pending_b64 = b64
     st.session_state.pending_mime = mime
 
-  toggle_label = "📷 Close camera" if st.session_state.show_camera else "📷 Take a
-photo"
+  toggle_label = "📷 Close camera" if st.session_state.show_camera else "📷 Take a photo"
   if st.button(toggle_label, use_container_width=True):
     st.session_state.show_camera = not st.session_state.show_camera
     st.rerun()
