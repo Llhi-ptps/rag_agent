@@ -166,7 +166,7 @@ for msg in st.session_state.chat_history:
       if msg["role"] == "assistant":
         render_response(msg["content"]) # ← handles [RECIPE_IMAGE:…
       else:
-      st.markdown(msg["content"])
+        st.markdown(msg["content"])
 
 # ── 8. Chat input ─────────────────────────────────────────────────────────────
 user_input = st.chat_input("Type your message…")
