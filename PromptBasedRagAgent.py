@@ -19,8 +19,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 
 
-# ── Google Drive ────────────────────────────
-──────────────────────────────────
+# ── Google Drive ──────────────────────────────────────────────────────────────
 import gdrive_utils
 
 PROMPT_NAME = "agent.prompt"
@@ -72,7 +71,6 @@ def _build_index():
 
     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
     chunks   = splitter.split_documents(docs)
-
     embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
     db = FAISS.from_documents(chunks, embeddings)
     print(f"[RAG] Index built: {len(chunks)} chunks from {len(docs)} document(s).")
@@ -81,32 +79,31 @@ def _build_index():
 
 _retriever = _build_index()
 
-# ── Google Drive tools ─────────────────────────
-───────────────────────────────
+# ── Google Drive tools ────────────────────────────────────────────────────────
 def list_drive_recipes(search: str = "") -> str:
     """List recipe image files available in the Google Drive recipe folder.
     Optionally pass a *search* term (e.g. 'pasta', 'salad') to filter results
     by filename. Returns file names and their Drive IDs so you can call
     get_recipe_image() with the right ID.
     """
-if not GDRIVE_FOLDER_ID:
-    return "Google Drive folder is not configured (GDRIVE_FOLDER_ID missing)."
+    if not GDRIVE_FOLDER_ID:
+        return "Google Drive folder is not configured (GDRIVE_FOLDER_ID missing)."
     try:
         files = gdrive_utils.list_image_files(GDRIVE_FOLDER_ID)
     except Exception as e:
         return f"Error accessing Google Drive: {e}"
         
-if not files:
-    return "No recipe images found in the Google Drive folder."
-    
-if search:
-    term = search.lower()
-    files = [f for f in files if term in f["name"].lower()]
     if not files:
-        return f"No recipe images matched '{search}'."
+        return "No recipe images found in the Google Drive folder."
+    
+    if search:
+        term = search.lower()
+        files = [f for f in files if term in f["name"].lower()]
+        if not files:
+            return f"No recipe images matched '{search}'."
         
-lines = [f"- {f['name']} (id: {f['id']})" for f in files]
-return "Available recipe images:\n" + "\n".join(lines)
+    lines = [f"- {f['name']} (id: {f['id']})" for f in files]
+    return "Available recipe images:\n" + "\n".join(lines)
 
 def get_recipe_image(file_id: str) -> str:
     """Fetch a recipe image from Google Drive.
@@ -115,9 +112,9 @@ def get_recipe_image(file_id: str) -> str:
     The UI converts it into a visible image — but only if the tag
     is present in your message. Never replace it with a description.
     """
-if not file_id.strip():
-    return "No file_id provided."
-return f"[RECIPE_IMAGE:{file_id.strip()}]"
+    if not file_id.strip():
+        return "No file_id provided."
+    return f"[RECIPE_IMAGE:{file_id.strip()}]"
 
 # ── Prompt ────────────────────────────────────────────────────────────────────
 
