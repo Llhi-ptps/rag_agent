@@ -220,15 +220,15 @@ m.get("image_mime"))
       if m["role"] == "user":
          content = build_lc_content(m["content"], m.get("image_b64"),m.get("image_mime"))
          lc_messages.append(HumanMessage(content=content))
-        else:
+      else:
          lc_messages.append(AIMessage(content=m["content"]))
 
-    with st.chat_message("assistant"):
-      with st.spinner("Thinking…"):
-        try:
-          response = run_graph(lc_messages, thread_id)
-        except Exception as exc:
-          response = f"⚠ Error: {exc}"
-      render_response(response) # ← handles [RECIPE_IMAGE:…]
+       with st.chat_message("assistant"):
+        with st.spinner("Thinking…"):
+          try:
+            response = run_graph(lc_messages, thread_id)
+          except Exception as exc:
+            response = f"⚠ Error: {exc}"
+        render_response(response) # ← handles [RECIPE_IMAGE:…]
 
   st.session_state.chat_history.append({"role": "assistant", "content": response})
