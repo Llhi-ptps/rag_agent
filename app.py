@@ -205,7 +205,7 @@ if user_input or (st.session_state.pending_b64 and user_input is not None):
           response = run_graph(lc_messages, thread_id)
         except Exception as exc:
          response = f"⚠ Error: {exc}"
-   render_response(response) # ← handles [RECIPE_IMAGE:…]
+     render_response(response) # ← handles [RECIPE_IMAGE:…]
 
   st.session_state.chat_history.append({"role": "assistant", "content": response, "image_b64": image_b64,
     "image_mime": image_mime,
