@@ -31,8 +31,7 @@ from langchain_community.vectorstores import FAISS
 import gdrive_utils
 
 PROMPT_NAME = "agent.prompt"
-PROMPT_PATH = os.path.join(os.path.dirname(__file__), "prompts",
-PROMPT_NAME)
+PROMPT_PATH = os.path.join(os.path.dirname(__file__), "prompts", PROMPT_NAME)
 RAG_DIR = os.path.join(os.path.dirname(__file__), "rag")
 OPENAI_MODEL = "gpt-4.1-mini"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
