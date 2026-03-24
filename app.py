@@ -50,8 +50,7 @@ def file_to_base64(uploaded_file) -> tuple[str, str]:
   b64 = base64.b64encode(uploaded_file.read()).decode("utf-8")
 return b64, mime_type
 
-def build_lc_content(text: str, image_b64: str | None, mime_type: str | None) -> str |
-list:
+def build_lc_content(text: str, image_b64: str | None, mime_type: str | None) -> str | list:
   if image_b64:
     return [
       {"type": "text", "text": text or "Describe this image."},
