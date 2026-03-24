@@ -150,7 +150,7 @@ def prompt(state: AgentState, config: RunnableConfig) -> list[AnyMessage]:
 
 # ── Graph ─────────────────────────────────────────────────────────────────────
 
-_tools = [get_current_date, search_documents]
+_tools = [get_current_date, search_documents, list_drive_recipes, get_recipe_image]
 
 graph = create_react_agent(
     model=f"openai:{OPENAI_MODEL}",
