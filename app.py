@@ -208,8 +208,7 @@ m.get("image_mime"))
             response = f"⚠ Error: {exc}"
       render_response(response) # ← handles [RECIPE_IMAGE:…]
 
-  st.session_state.chat_history.append({"role": "assistant", "content": response})
-"image_b64": image_b64,
+  st.session_state.chat_history.append({"role": "assistant", "content": response, "image_b64": image_b64,
     "image_mime": image_mime,
     })
 
