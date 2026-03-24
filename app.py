@@ -212,17 +212,16 @@ m.get("image_mime"))
     "image_mime": image_mime,
     })
 
-    st.session_state.pending_b64 = None
-    st.session_state.pending_mime = None
+  st.session_state.pending_b64 = None
+  st.session_state.pending_mime = None
 
-    lc_messages = []
-    for m in st.session_state.chat_history:
-        if m["role"] == "user":
-          content = build_lc_content(m["content"], m.get("image_b64"),
-m.get("image_mime"))
-          lc_messages.append(HumanMessage(content=content))
+  lc_messages = []
+  for m in st.session_state.chat_history:
+      if m["role"] == "user":
+         content = build_lc_content(m["content"], m.get("image_b64"),m.get("image_mime"))
+         lc_messages.append(HumanMessage(content=content))
         else:
-          lc_messages.append(AIMessage(content=m["content"]))
+         lc_messages.append(AIMessage(content=m["content"]))
 
     with st.chat_message("assistant"):
       with st.spinner("Thinking…"):
