@@ -210,7 +210,7 @@ m.get("image_mime"))
 
     st.session_state.chat_history.append({"role": "assistant", "content": response})
 "image_b64": image_b64,
-"image_mime": image_mime,
+      "image_mime": image_mime,
     })
 
     st.session_state.pending_b64 = None
