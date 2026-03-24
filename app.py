@@ -176,10 +176,10 @@ if user_input or (st.session_state.pending_b64 and user_input is not None):
   image_mime = st.session_state.pending_mime
 
   with st.chat_message("user"):
-    if image_b64:
-      render_image(image_b64)
-    if text:
-      st.markdown(text)
+      if image_b64:
+        render_image(image_b64)
+      if text:
+        st.markdown(text)
 
   st.session_state.chat_history.append({
     "role": "user",
@@ -223,11 +223,11 @@ if user_input or (st.session_state.pending_b64 and user_input is not None):
          lc_messages.append(AIMessage(content=m["content"]))
 
    with st.chat_message("assistant"):
-     with st.spinner("Thinking…"):
-      try:
-         response = run_graph(lc_messages, thread_id)
-       except Exception as exc:
-        response = f"⚠ Error: {exc}"
-     render_response(response) # ← handles [RECIPE_IMAGE:…]
+       with st.spinner("Thinking…"):
+        try:
+           response = run_graph(lc_messages, thread_id)
+         except Exception as exc:
+          response = f"⚠ Error: {exc}"
+       render_response(response) # ← handles [RECIPE_IMAGE:…]
 
   st.session_state.chat_history.append({"role": "assistant", "content": response})
