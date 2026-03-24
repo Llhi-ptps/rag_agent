@@ -95,8 +95,7 @@ def render_response(response: str) -> None:
     except Exception as e:
       st.warning(f"⚠ Could not load recipe image ({file_id}): {e}")
 
-# ── 4. Session state ───────────────────────────
-───────────────────────────────
+# ── 4. Session state ──────────────────────────────────────────────────────────
 if "session_seed" not in st.session_state:
   st.session_state.session_seed = str(uuid.uuid4())
 if "chat_history" not in st.session_state:
@@ -112,8 +111,7 @@ thread_id = make_thread_id(st.session_state.session_seed)
 
 
 
-# ── 5. Sidebar ─────────────────────────────
-───────────────────────────────────
+# ── 5. Sidebar ────────────────────────────────────────────────────────────────
 with st.sidebar:
   st.caption(f"Thread ID: `{thread_id}`")
   if st.button("🗑 Clear conversation"):
@@ -158,11 +156,9 @@ photo"
         st.session_state.pending_mime = None
         st.rerun()
 
-# ── 6. Title ───────────────────────────────
-───────────────────────────────────
+# ── 6. Title ──────────────────────────────────────────────────────────────────
 st.title("Prompt Based Agent")
-# ── 7. Chat history ───────────────────────────
-────────────────────────────────
+# ── 7. Chat history ───────────────────────────────────────────────────────────
 for msg in st.session_state.chat_history:
   with st.chat_message(msg["role"]):
     if msg["role"] == "user" and msg.get("image_b64"):
