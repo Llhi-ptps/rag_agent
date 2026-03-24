@@ -48,7 +48,7 @@ def make_thread_id(seed: str) -> str:
 def file_to_base64(uploaded_file) -> tuple[str, str]:
   mime_type = uploaded_file.type or "image/jpeg"
   b64 = base64.b64encode(uploaded_file.read()).decode("utf-8")
-return b64, mime_type
+  return b64, mime_type
 
 def build_lc_content(text: str, image_b64: str | None, mime_type: str | None) -> str | list:
   if image_b64:
@@ -56,7 +56,7 @@ def build_lc_content(text: str, image_b64: str | None, mime_type: str | None) ->
       {"type": "text", "text": text or "Describe this image."},
       {"type": "image", "base64": image_b64, "mime_type": mime_type},
     ]
-return text
+  return text
 
 def run_graph(messages: list, thread_id: str) -> str:
     """Invoke the LangGraph agent and return the last AI message content."""
