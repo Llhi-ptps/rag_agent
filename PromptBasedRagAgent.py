@@ -86,7 +86,18 @@ def _build_index():
 
 
 _retriever = _build_index()
-
+@tool
+def search_documents(query: str) -> str:
+    """Search the RAG document index for information relevant to the query."""
+    if _retriever is None:
+        return "No documents are available to search."
+    results = _retriever.invoke(query)
+    if not results:
+        return "No relevant documents found."
+    return "\n\n".join(
+        f"[{doc.metadata.get('source', 'unknown')}]\n{doc.page_content}"
+        for doc in results
+    )
 # ── Google Drive tools ────────────────────────────────────────────────────────
 def list_drive_recipes(search: str = "") -> str:
     """List recipe image files available in the Google Drive recipe folder.
