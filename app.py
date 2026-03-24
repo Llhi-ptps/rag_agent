@@ -70,8 +70,7 @@ def run_graph(messages: list, thread_id: str) -> str:
 
 def render_image(b64: str, width: int = 280) -> None:
 st.image(base64.b64decode(b64), width=width)
-# ── 3a. Recipe-image renderer ──────────────────────
-───────────────────────────
+# ── 3a. Recipe-image renderer ─────────────────────────────────────────────────
 _IMAGE_TAG = re.compile(r"\[RECIPE_IMAGE:([^\]]+)\]")
 
 @st.cache_data(ttl=300, show_spinner=False)
