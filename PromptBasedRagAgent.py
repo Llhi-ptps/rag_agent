@@ -108,11 +108,7 @@ def list_drive_recipes(search: str = "") -> str:
         return "Google Drive folder is not configured (GDRIVE_FOLDER_ID missing)."
     try:
         files = gdrive_utils.list_image_files(GDRIVE_FOLDER_ID)
-         print(f"[Drive] Files found: {files}")  # ← add this
-        return str(files)  # ← temporarily return raw result
     except Exception as e:
-        print(f"[Drive] Error: {e}")
-        return f"Error: {e}"  # ← return actual error
         return f"Error accessing Google Drive: {e}"
         
     if not files:
