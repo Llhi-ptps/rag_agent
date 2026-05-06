@@ -29,6 +29,7 @@ from langchain_community.vectorstores import FAISS
 
 # ── Google Drive ──────────────────────────────────────────────────────────────
 import gdrive_utils
+from fp2_tool import get_fp2_presence, get_fp2_history
 
 PROMPT_NAME = "agent.prompt"
 PROMPT_PATH = os.path.join(os.path.dirname(__file__), "prompts", PROMPT_NAME)
@@ -152,7 +153,7 @@ def prompt(state: AgentState, config: RunnableConfig) -> list[AnyMessage]:
 
 # ── Graph ─────────────────────────────────────────────────────────────────────
 
-_tools = [get_current_date, search_documents, list_drive_recipes, get_recipe_image]
+_tools = [get_current_date, search_documents, list_drive_recipes, get_recipe_image, get_fp2_presence, get_fp2_history]
 
 graph = create_react_agent(
     model=f"openai:{OPENAI_MODEL}",
